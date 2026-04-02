@@ -16,6 +16,34 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'hasDropdown',
+          type: 'checkbox',
+          label: 'Has Dropdown',
+          defaultValue: false,
+        },
+        {
+          name: 'dropdownItems',
+          type: 'array',
+          label: 'Dropdown Items',
+          admin: {
+            condition: (_, siblingData) => siblingData?.hasDropdown,
+            initCollapsed: true,
+          },
+          fields: [
+            link({
+              appearances: false,
+            }),
+            {
+              name: 'description',
+              type: 'text',
+              label: 'Description',
+              admin: {
+                description: 'Optional short description shown below the label',
+              },
+            },
+          ],
+        },
       ],
       maxRows: 6,
       admin: {
