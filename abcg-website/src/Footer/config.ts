@@ -12,11 +12,7 @@ export const Footer: GlobalConfig = {
     {
       name: 'navItems',
       type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
+      label: 'Footer Columns',
       maxRows: 6,
       admin: {
         initCollapsed: true,
@@ -24,6 +20,25 @@ export const Footer: GlobalConfig = {
           RowLabel: '@/Footer/RowLabel#RowLabel',
         },
       },
+      fields: [
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          label: 'Column Heading',
+        },
+        {
+          name: 'subLinks',
+          type: 'array',
+          label: 'Links',
+          maxRows: 10,
+          fields: [
+            link({
+              appearances: false,
+            }),
+          ],
+        },
+      ],
     },
   ],
   hooks: {

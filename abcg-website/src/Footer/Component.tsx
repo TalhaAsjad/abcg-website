@@ -1,32 +1,46 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
-import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData = (await getCachedGlobal('footer', 1)()) as Footer
 
   const navItems = footerData?.navItems || []
 
   return (
     <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
+      <div className="container py-12">
+        {/* Mobile: stacked, Desktop: logo + columns equally spaced in one row */}
+        <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-8">
+          {/* Logo */}
+          <div className="md:flex-1">
+            <Link href="/">
+              <Logo />
+            </Link>
+          </div>
 
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
+          {/* Nav Columns */}
+          {navItems.map((column, i) => (
+            <div key={i} className="md:flex-1">
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-white/70 mb-6">
+                {column.heading}
+              </h3>
+              <ul className="flex flex-col gap-3">
+                {column.subLinks?.map(({ link }, j) => (
+                  <li key={j}>
+                    <CMSLink
+                      className="text-white hover:text-white/80 transition-colors"
+                      {...link}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </footer>
