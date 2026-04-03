@@ -67,7 +67,38 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { hero, layout } = page
 
   return (
-    <article className="pt-16 pb-24">
+    <article className="relative pt-16 pb-24 text-white overflow-hidden" data-theme="dark">
+      {/* Page-wide video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover -z-10"
+        src="https://l4wlsi8vxy8hre4v.public.blob.vercel-storage.com/video/glass-animation-5-f0gPcjmKFIV3ot5MGOdNy2r4QHBoXt.mp4"
+      />
+      <div className="fixed inset-0 bg-black/40 -z-[5]" />
+      <div
+        className="fixed inset-0 -z-4 pointer-events-none opacity-40"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse 6px 3px at center, transparent 60%, rgba(0,0,0,0.5) 100%)',
+          backgroundSize: '8px 5px',
+        }}
+      />
+
+      {/* Grid lines - mobile: side borders only */}
+      <div className="container fixed inset-0 z-0 grid grid-cols-1 lg:hidden mx-auto left-0 right-0 pointer-events-none">
+        <div className="border-x border-white/10 h-full" />
+      </div>
+      {/* Grid lines - desktop: 4-col */}
+      <div className="container fixed inset-0 z-0 hidden lg:grid grid-cols-4 mx-auto left-0 right-0 pointer-events-none">
+        <div className="border-x border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+      </div>
+
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
