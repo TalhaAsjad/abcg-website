@@ -185,7 +185,15 @@ export interface Page {
     heroImage1: number | Media;
     heroImage2: number | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | LogoGridBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | LogoGridBlock
+    | FeatureImageBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -800,6 +808,31 @@ export interface LogoGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureImageBlock".
+ */
+export interface FeatureImageBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1100,6 +1133,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         logoGrid?: T | LogoGridBlockSelect<T>;
+        featureImage?: T | FeatureImageBlockSelect<T>;
       };
   meta?:
     | T
@@ -1211,6 +1245,16 @@ export interface LogoGridBlockSelect<T extends boolean = true> {
         logoMedia?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureImageBlock_select".
+ */
+export interface FeatureImageBlockSelect<T extends boolean = true> {
+  richText?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }
