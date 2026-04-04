@@ -10,6 +10,7 @@ import { FeatureImageBlock } from '@/blocks/FeatureImage/Component'
 import { LogoGridBlock } from '@/blocks/LogoGrid/Component'
 import { HoverHighlightsBlock } from '@/blocks/HoverHighlights/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { TestimonialSliderBlock } from '@/blocks/TestimonialSlider/Component'
 import { BackgroundGrid } from '@/components/BackgroundGrid'
 
 const blockComponents = {
@@ -21,6 +22,7 @@ const blockComponents = {
   hoverHighlights: HoverHighlightsBlock,
   logoGrid: LogoGridBlock,
   mediaBlock: MediaBlock,
+  testimonialSlider: TestimonialSliderBlock,
 }
 
 export const RenderBlocks: React.FC<{

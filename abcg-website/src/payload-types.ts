@@ -194,6 +194,7 @@ export interface Page {
     | LogoGridBlock
     | FeatureImageBlock
     | HoverHighlightsBlock
+    | TestimonialSliderBlock
   )[];
   meta?: {
     title?: string | null;
@@ -896,6 +897,53 @@ export interface HoverHighlightsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialSliderBlock".
+ */
+export interface TestimonialSliderBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  testimonials?:
+    | {
+        feedback: string;
+        name: string;
+        companyLogo: number | Media;
+        caseStudyLabel?: string | null;
+        caseStudyLink?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1198,6 +1246,7 @@ export interface PagesSelect<T extends boolean = true> {
         logoGrid?: T | LogoGridBlockSelect<T>;
         featureImage?: T | FeatureImageBlockSelect<T>;
         hoverHighlights?: T | HoverHighlightsBlockSelect<T>;
+        testimonialSlider?: T | TestimonialSliderBlockSelect<T>;
       };
   meta?:
     | T
@@ -1357,6 +1406,32 @@ export interface HoverHighlightsBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialSliderBlock_select".
+ */
+export interface TestimonialSliderBlockSelect<T extends boolean = true> {
+  richText?: T;
+  testimonials?:
+    | T
+    | {
+        feedback?: T;
+        name?: T;
+        companyLogo?: T;
+        caseStudyLabel?: T;
+        caseStudyLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
