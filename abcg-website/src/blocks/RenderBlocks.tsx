@@ -8,7 +8,9 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { FeatureImageBlock } from '@/blocks/FeatureImage/Component'
 import { LogoGridBlock } from '@/blocks/LogoGrid/Component'
+import { HoverHighlightsBlock } from '@/blocks/HoverHighlights/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { BackgroundGrid } from '@/components/BackgroundGrid'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -16,6 +18,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   featureImage: FeatureImageBlock,
   formBlock: FormBlock,
+  hoverHighlights: HoverHighlightsBlock,
   logoGrid: LogoGridBlock,
   mediaBlock: MediaBlock,
 }
@@ -28,17 +31,20 @@ export const RenderBlocks: React.FC<{
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (hasBlocks) {
+    const hoverIndex = blocks.findIndex((b) => b.blockType === 'hoverHighlights')
+
     return (
       <Fragment>
         {blocks.map((block, index) => {
           const { blockType } = block
+          const isDark = hoverIndex !== -1 && index >= hoverIndex
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
-
             if (Block) {
               return (
-                <div className="my-16" key={index}>
+                <div className={isDark ? 'relative bg-black' : ''} key={index}>
+                  {isDark && <BackgroundGrid />}
                   {/* @ts-expect-error there may be some mismatch between the expected types here - block props are dynamically resolved */}
                   <Block {...block} />
                 </div>

@@ -193,6 +193,7 @@ export interface Page {
     | FormBlock
     | LogoGridBlock
     | FeatureImageBlock
+    | HoverHighlightsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -833,6 +834,68 @@ export interface FeatureImageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HoverHighlightsBlock".
+ */
+export interface HoverHighlightsBlock {
+  /**
+   * Small text shown above the highlight links
+   */
+  beforeHighlights?: string | null;
+  /**
+   * Each highlight has a link text, two images (top and bottom), and a destination link.
+   */
+  highlights?:
+    | {
+        text: string;
+        media: {
+          top: number | Media;
+          bottom?: (number | null) | Media;
+        };
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Small text shown below the highlight links (optional)
+   */
+  afterHighlights?: string | null;
+  /**
+   * Bottom link (e.g. "Schedule a demo")
+   */
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hoverHighlights';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1134,6 +1197,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         logoGrid?: T | LogoGridBlockSelect<T>;
         featureImage?: T | FeatureImageBlockSelect<T>;
+        hoverHighlights?: T | HoverHighlightsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1255,6 +1319,45 @@ export interface LogoGridBlockSelect<T extends boolean = true> {
 export interface FeatureImageBlockSelect<T extends boolean = true> {
   richText?: T;
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HoverHighlightsBlock_select".
+ */
+export interface HoverHighlightsBlockSelect<T extends boolean = true> {
+  beforeHighlights?: T;
+  highlights?:
+    | T
+    | {
+        text?: T;
+        media?:
+          | T
+          | {
+              top?: T;
+              bottom?: T;
+            };
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  afterHighlights?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   id?: T;
   blockName?: T;
 }

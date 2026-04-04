@@ -231,6 +231,7 @@ html[data-theme='light'] {
 }
 .link-fill-up:hover {
   background-size: 100% 100%;
+  color: black !important;
 }
 .link-fill-up.filled {
   background-size: 100% 100%;

@@ -5,6 +5,7 @@ import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { BackgroundGrid } from '@/components/BackgroundGrid'
 
 export async function Footer() {
   const footerData = (await getCachedGlobal('footer', 1)()) as Footer
@@ -12,8 +13,9 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-12">
+    <footer className="relative mt-auto border-t border-border bg-black text-white">
+      <BackgroundGrid />
+      <div className="container">
         {/* Mobile: stacked, Desktop: logo + columns equally spaced in one row */}
         <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-8">
           {/* Logo */}
