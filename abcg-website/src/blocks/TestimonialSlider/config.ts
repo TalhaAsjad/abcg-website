@@ -72,7 +72,7 @@ export const TestimonialSlider: Block = {
             name: 'caseStudyLink',
             label: 'Case Study Link',
             dbName: 'cs_link',
-          },
+          } as any,
         }),
       ],
     },
